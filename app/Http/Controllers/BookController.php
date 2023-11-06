@@ -22,7 +22,7 @@ class BookController extends Controller
         $Book2->id = 2;
         $Book2->name = "The Great Gatsby";
         $Book2->author = "F. Scott Fitzgerald";
-        $Book2->category = "Ebook";
+        $Book2->category = "Paper Book";
         // $Book2->save();
         $books = [$Book1, $Book2];
         return view('admins/content/book/index', ["books"=>$books]);
