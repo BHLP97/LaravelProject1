@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -12,16 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $Category1 = new Category();
-        $Category1->id = 1;
-        $Category1->name = "Ebook";
-        // $Category1->save();
-        $Category2 = new Category();
-        $Category2->id = 2;
-        $Category2->name = "Paper book";
-        // $Category2->save();
-        $categories = [$Category1, $Category2];
-        return view('admins/content/category/index', ["categories"=>$categories]);
+        $categories = Category::where('parent_id','=',0)->with('childs')->get();
+        return view("admins.content.category.index",["categories"=>$categories]);
     }
 
     /**
@@ -29,7 +22,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::where('parent_id','=',0)->with('childs')->get();
+        return view("admins.content.category.create", ["categories"=>$categories]);
     }
 
     /**
@@ -37,7 +31,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $category = new Category();
+        $category["name"] = $input["name"];
+        $category["slug"] = $input["slug"];
+        $category["parent_id"] = $input["parent_id"];
+        $category->save();
+        return redirect()->route("admin.category.index");
     }
 
     /**
@@ -51,24 +51,46 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $item = Category::find($id);
+        $categories = Category::where('parent_id','=',0)->with('childs')->get();
+        return view("admins.content.category.edit", ["categories"=>$categories, "item"=>$item]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $item = Category::find($id);
+            if($item){
+                $input = $request->all();
+                $item["name"] = $input["name"];
+                $item["slug"] = $input["slug"];
+                $item["parent_id"] = $input["parent_id"];
+                $item->save();
+         }
+ 
+         return redirect()->route("admin.category.index");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
-    {
-        //
+    public function deleteChilds($id){
+        $item = Category::find($id);
+        if($item){
+            if ($item->childs){
+                foreach ($item->childs as $child){
+                    $this->deleteChilds($child->id);
+                }
+            }
+            $item->delete();
+        }
+    }
+    public function destroy($id){
+        $this->deleteChilds($id);
+        return redirect()->route("admin.category.index");
     }
 }

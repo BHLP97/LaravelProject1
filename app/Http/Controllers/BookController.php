@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -12,20 +13,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        $Book1 = new Book();
-        $Book1->id = 1;
-        $Book1->name = "The Great Escape";
-        $Book1->author = "Paul Brickhill";
-        $Book1->category = "Ebook";
-        // $Book1->save();
-        $Book2 = new Book();
-        $Book2->id = 2;
-        $Book2->name = "The Great Gatsby";
-        $Book2->author = "F. Scott Fitzgerald";
-        $Book2->category = "Paper Book";
-        // $Book2->save();
-        $books = [$Book1, $Book2];
-        return view('admins/content/book/index', ["books"=>$books]);
+        $items = DB::table('books')->get();
+        return view('admins/content/book/index', ["books"=>$items]);
     }
 
     /**
@@ -33,7 +22,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $items = DB::table('categories')->get();
+        return view('admins/content/book/create', ["categories"=>$items]);
     }
 
     /**
@@ -41,7 +31,14 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $book = new Book();
+        $book->book_title = $request->get('book_title');
+        $book->book_author = $request->get('book_author');
+        $book->book_slug = $request->get('book_slug');
+        $book->book_category_id = $request->get('book_category_id');
+        // $book->book_cover = $request->get('book_cover');
+        $book->save();
+        return redirect()->route('admin.book');
     }
 
     /**
@@ -57,7 +54,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('admins/content/book/edit/'.$book->id);
     }
 
     /**
@@ -71,8 +68,10 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy($id)
     {
-        //
+        $book = Book::find($id);
+        $book->delete();
+        return redirect()->route('admin.book');
     }
 }
