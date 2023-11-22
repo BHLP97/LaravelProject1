@@ -13,6 +13,6 @@ class SEOSeeder extends Seeder
      */
     public function run(): void
     {
-        $seo = SEO::factory()->count(10)->create();
+        $seo = SEO::factory()->count(5)->create();
     }
 }

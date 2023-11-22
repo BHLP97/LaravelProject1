@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         $num_category = Category::count();
-        $random_number = fake()->randomNumber();
+        $random_number = fake()->randomDigit();
         if($num_category > 0 && $random_number < 3) {
             return [
                 'name' => fake()->name(),

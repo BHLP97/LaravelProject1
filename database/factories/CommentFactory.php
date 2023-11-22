@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Comment;
+use App\Models\Review;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,11 +19,22 @@ class CommentFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'content' => fake()->text(),
-            'parent_id' => 0,
-            'review_id' => 0,
-            'user_id' => 0,
-        ];
+        $num_category = Comment::count();
+        $random_number = fake()->randomDigit();
+        if($num_category > 0 && $random_number < 4) {
+            return [
+                'content' => fake()->text(),
+                'parent_id' => Comment::all()->random()->id,
+                'review_id' => Review::all()->random()->id,
+                'user_id' => User::all()->random()->id,
+            ];
+        } else {
+            return [
+                'content' => fake()->text(),
+                'parent_id' => 0,
+                'review_id' => Review::all()->random()->id,
+                'user_id' => User::all()->random()->id,
+            ];
+        }
     }
 }

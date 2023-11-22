@@ -181,7 +181,7 @@
                 <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
                    <img src="{{asset('backend/images/user/1.jpg')}}" class="img-fluid rounded mr-3" alt="user">
                    <div class="caption">
-                      <h6 class="mb-0 line-height">Bini Jets</h6>
+                      <h6 class="mb-0 line-height">Văn Lê Hải</h6>
                       <span class="font-size-12">Available</span>
                    </div>
                 </a>

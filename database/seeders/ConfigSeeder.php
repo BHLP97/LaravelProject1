@@ -13,6 +13,6 @@ class ConfigSeeder extends Seeder
      */
     public function run(): void
     {
-        $config = Config::factory()->count(10)->create();
+        $config = Config::factory()->count(5)->create();
     }
 }
