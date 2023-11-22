@@ -4,10 +4,14 @@
         <td>{{str_repeat("----", $level)}}  {{$item->name}}</td>
         <td>{{$item->slug}}</td>
 
-        <td>
-            <a href="{{route('admin.category.edit',$item->id )}}">Sửa</a>
+        <td class="text-center">
+            <a href="{{route('admin.category.edit',$item->id )}}">
+                <button class="btn btn-warning mr-2"><i class="fas fa-edit"></i></button>
+            </a>
             <a href="{{route('admin.category.destroy',$item->id )}}"
-               onclick="return confirm('Bạn có muốn xóa không?');">Xóa</a>
+               onclick="return confirm('Bạn có muốn xóa không?');">
+               <button class="btn btn-danger mr-2"><i class="fas fa-trash"></i></button>
+            </a>
         </td>
     </tr>
     @if($item->childs)

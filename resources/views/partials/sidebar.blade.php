@@ -1,7 +1,7 @@
 <div class="iq-sidebar">
     <div class="iq-sidebar-logo d-flex justify-content-between">
        <a href="index.html">
-       <img src="images/logo.png" class="img-fluid" alt="">
+       <img src="{{asset('backend/images/logo.png')}}" class="img-fluid" alt="">
        <span>XRay</span>
        </a>
        <div class="iq-menu-bt-sidebar">

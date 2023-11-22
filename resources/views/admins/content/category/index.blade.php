@@ -3,22 +3,24 @@
 @section('content')
 <div id='page-wrapper'>
     <div class="app-content">
-        <div class="tables">
-            <div class="table-responsive bs-example widget-shadow">
-                <p>Đây là view Category</p>
-                <a href="{{route('admin.category.create')}}"><button type="button" class="btn btn-success">Thêm danh mục</button></a>
-                <div class="flex justify-center">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Slug</th>
-                            <th>Actions</th>
-                        </tr>
-                        @include("admins.content.category.row_table",["categories"=>$categories, "level"=>0])
-                    </table>
-                </div>
-            </div>  
+        <div class="iq-card">
+            <div class="iq-card-header d-flex justify-content-between">
+                <div class="table-responsive bs-example widget-shadow">
+                    <p>Đây là view Category</p>
+                    <a href="{{route('admin.category.create')}}"><button type="button" class="btn btn-outline-success mb-3">Thêm danh mục</button></button></a>
+                    <div class="flex justify-center">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Slug</th>
+                                <th>Actions</th>
+                            </tr>
+                            @include("admins.content.category.row_table", ["categories"=>$categories, "level"=>0])
+                        </table>
+                    </div>
+                </div>  
+            </div>
         </div>
     </div>
 </div>

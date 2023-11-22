@@ -31,11 +31,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
         $category = new Category();
-        $category["name"] = $input["name"];
-        $category["slug"] = $input["slug"];
-        $category["parent_id"] = $input["parent_id"];
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+        $category->parent_id = $request->parent_id;
+        $category->status = 1;
         $category->save();
         return redirect()->route("admin.category.index");
     }

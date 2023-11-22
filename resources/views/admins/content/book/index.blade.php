@@ -28,7 +28,8 @@
                                 </td>
                                 <td>
                                     <a href="{{route('admin.book.edit', $book->id)}}">Edit</a>
-                                    <a href="{{route('admin.book.destroy', $book->id)}}">Delete</a>
+                                    <a href="{{route('admin.book.destroy', $book->id)}}"
+                                        onclick="return confirm('Bạn có muốn xóa không?');">Delete</a>
                                 </td>
                             </tr> 
                         @endforeach

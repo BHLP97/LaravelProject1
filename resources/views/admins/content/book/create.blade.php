@@ -2,28 +2,42 @@
 
 @section('content')
 <div id='page-wrapper'>
-    <div class="app-content">
-        <div class="tables">
-          <form action="{{route('admin.book.store')}}" method="post">
-            @csrf
-            <label for="book_title">First name:</label><br>
-            <input type="text" id="book_title" name="book_title" value="" placeholder="Write a title here"><br>
-            <label for="book_author">Last name:</label><br>
-            <input type="text" id="book_author" name="book_author" value="" placeholder="Write the author here"><br>
-            <label for="book_slug">Slug:</label><br>
-            <input type="text" id="book_slug" name="book_slug" value="" placeholder="Write the slug here"><br>
-            <label for="book_category">Category :</label><br>
-            <select name="book_category_id" id="book_category_id">
-              <option value="">Choose a category here</option>
-              @foreach ($categories as $item)
-                <option value="{{$item->id}}">{{$item->name}}</option>
-              @endforeach
-            </select>
-            <br><br>
-            <input type="submit" value="Submit">
+  <div class="app-content">
+    <div class="iq-card">
+      <div class="iq-card-header d-flex justify-content-between">
+          <div class="iq-header-title">
+            <h4 class="card-title">Sửa thông tin quyển</h4>
+          </div>
+      </div>
+      <div class="iq-card-body">
+          <form action="{{route("admin.book.store")}}" method="POST">
+              @csrf
+              <div class="form-group">
+                  <label for="categoryName">Tên danh mục</label>
+                  <input type="text" class="form-control" id="book_title" name="book_title" placeholder="Nhập tên danh mục..." value="">
+              </div>
+              <div class="form-group">
+                  <label for="categorySlug">Author</label>
+                  <input type="text" class="form-control" id="book_author" name="book_author" placeholder="Nhập slug của danh mục..."  value="">
+              </div>
+              <div class="form-group">
+                  <label for="categorySlug">Slug</label>
+                  <input type="text" class="form-control" id="book_slug" name="book_slug" placeholder="Nhập slug của danh mục..."  value="">
+              </div>
+              <div class="form-group">
+                  <label for="book_category_id">Danh mục</label>
+                  <select name="book_category_id" id="book_category_id">
+                    <option value="">Choose a category here</option>
+                    @foreach ($books as $item)
+                      <option value="{{$item->id}}">{{$item->name}}</option>
+                    @endforeach
+                  </select>
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
           </form>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
 <style>
     table {
